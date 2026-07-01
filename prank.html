@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#b9a183">
+    <style>
+        body{background-color: bisque; font-size: calc(0.5rem + 1.5vw); align-items: center;}
+        #div{
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 5px solid crimson;
+            
+        }
+
+        h2{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        header{
+            display: flex;
+        }
+
+        #extremes{
+        
+            justify-content: space-between;
+            text-align: center;
+            gap: 20px;
+            padding: 7px;
+            background-color: rgb(185, 161, 131);
+            border-radius: 5px;
+            color: aliceblue;
+        
+        }
+
+        footer{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        button{
+            background-color: transparent;
+            border-radius: 6px;
+            transform: background-color 0.25s;
+            box-shadow: 6px 6px black;
+            font-size: 1.5em;
+        }
+        button:hover{
+            transform: translateY(-2px) scale(1.03);
+            background-color: #b9a183;
+            color: aliceblue;
+        }
+        p{
+            font-family: fantasy;
+        }
+
+        #etat{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #h1{
+            font-family: cursive;
+        }
+
+        #prank{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        select, input{
+            font-size: 1.5em;
+            padding: 5px 10px;
+            background-color: rgb(185, 161, 131);
+            border-radius: 10px;
+            color: aliceblue;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-shadow: 6px 6px black;
+        }
+
+        label{
+            font-size: 2em;
+        }
+        img{
+            display: none;
+            height: auto;
+            width: 90%;
+            border-radius: 5px;
+        }
+
+        #polaroid{
+            flex-direction: column-reverse;
+            align-items: center;
+            position: absolute;
+            background: white;
+            padding: 15px 15px 50px 20px;
+            width: 300px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            border-radius: 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)   rotate(-3deg);
+            animation: apparition 0.8s ease;
+            
+        }
+
+        @keyframes apparition {
+            from{
+                opacity: 0;
+                transform: scale(0.8) rotate(-10deg);
+            }
+            to{
+                opacity: 1;
+                transform: scale(1) rotate(-3deg);
+            }
+            
+        }
+
+        #polaroid h1{
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            font-family: cursive;
+            color: #333;
+        }
+
+    </style>
+    <title>Safe</title>
+</head>
+
+<header id="extremes">
+
+    <h2>-- GENERATEUR DE PHOTO --</h2>
+    <p id="etat" style="color: rgb(66, 125, 233);">Attente</p>
+
+</header>
+
+
+<body id="body">
+    <div id="div">
+        <h1 id="h">-- Entrer vos informations --</h1>
+        <label>SEXE: </label>
+        <select name="select" id="select">
+            <option value="homme" id="homme">Homme</option>
+            <option value="femme" id="femme">Femme</option>
+        </select>
+        <br><br>
+        <label for="prenom">Prenom: </label>
+        <input type="text" id="prenom">
+        <br><br>
+        <button id="bouton">Valider</button>
+    </div>
+    <div id="prank">
+        <h1 id="h1"></h1>
+        <p id="status"></p>   
+    </div>
+    <section>
+        <div id="polaroid" style="display: none;">
+            
+            <img src="male.jpeg" alt="male" id="male">
+            <img src="female.jpg" alt="female" id="female">
+            <h1 id="greet"></h1>
+        </div>
+    </section>
+    
+<footer id="extremes">
+    <h2>-- GENERATEUR DE PHOTO --</h2>
+    <h2>&copy;ARES</h2>
+</footer>
+
+    <script>
+        let prenom;
+        const bouton = document.getElementById("bouton");
+        const greet = document.getElementById("greet");
+        const polaroid = document.getElementById("polaroid");
+        const status = document.getElementById("status") ;
+        const etat = document.getElementById("etat") ;
+
+        console.log(document.getElementById("homme").value);
+
+        
+
+        bouton.onclick = function(){
+            prenom = document.getElementById("prenom").value;
+            document.getElementById("div").style.display = "none";
+            const sexe = document.getElementById("select").value;
+            console.log(sexe);
+
+            setTimeout(function (){
+                document.getElementById("h1").textContent = `Bienvenue ${prenom}!`;
+            },200);
+            
+            setTimeout(function (){
+                status.textContent = `Connexion en cours... `;
+                etat.textContent = `connexion`;
+                etat.style.color = "red";
+            },1000);
+
+            setTimeout(function (){
+                status.textContent = `Generation du photo de profil...`;
+            },2000);
+
+            setTimeout(function (){
+                status.textContent = `Connecte avec succes`;
+                etat.textContent = `Generé`;
+                etat.style.color = "green";
+                //document.getElementById("body").style.backgroundColor = "green";
+            },3000)
+
+
+           
+
+        
+            setTimeout(function (){
+                status.style.display = "none";
+                polaroid.style.display = "flex";
+                greet.textContent = `Photo de ${prenom}`;
+
+                if (sexe == "homme"){
+                    document.getElementById("male").style.display = "block";
+                    
+                }
+                else{
+                    document.getElementById("female").style.display = "block";
+                }
+
+
+
+
+            },6000);
+        }
+
+
+
+    </script>
+</body>
+</html>
